@@ -49,8 +49,8 @@ const Routes = createBottomTabNavigator(
         borderTopColor: "transparent"
       },
       activeTintColor: {
-        light: "rgb(90, 200, 255)",
-        dark: "rgb(100, 210, 255)"
+        light: "rgb(100, 210, 255)",
+        dark: "rgb(90, 200, 255)"
       },
       inactiveTintColor: "rgb(142, 142, 147)",
       labelStyle: { fontWeight: "500", fontSize: 10, marginTop: 2 }

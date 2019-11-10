@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AppearanceProvider, useColorScheme } from "react-native-appearance";
-import { ThemeProvider, ThemeContext } from "./src/contexts/ThemeContext";
-import { View, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { useColorScheme } from "react-native-appearance";
+import { AuthProvider } from "./src/contexts/AuthContext";
+import { View } from "react-native";
 import * as Font from "expo-font";
 
-import Routes from "./src/routes/routes";
+import FirebaseInitialization from "./src/firebase/firebaseInitialization";
 
 export default function App(props) {
   const [theme, setTheme] = useState(useColorScheme());
@@ -23,11 +23,9 @@ export default function App(props) {
   }
 
   return fontLoaded ? (
-    <AppearanceProvider>
-      <ThemeProvider>
-        <Routes theme={theme} />
-      </ThemeProvider>
-    </AppearanceProvider>
+    <AuthProvider>
+      <FirebaseInitialization theme={theme} />
+    </AuthProvider>
   ) : (
     <View></View>
   );
