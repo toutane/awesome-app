@@ -2,19 +2,22 @@ import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createStackNavigator } from "react-navigation-stack";
 import { Ionicons } from "@expo/vector-icons";
+
+import ExploreStack from "./ExploreNavigator";
 
 import Library from "../views/Library";
 import Explore from "../views/Explore";
 import Search from "../views/Search";
 
-const Routes = createBottomTabNavigator(
+const TabBarNavigator = createBottomTabNavigator(
   {
     Library: {
       screen: Library
     },
     Explore: {
-      screen: Explore
+      screen: ExploreStack
     },
     Search: {
       screen: Search
@@ -40,6 +43,7 @@ const Routes = createBottomTabNavigator(
         );
       }
     }),
+    initialRouteName: "Explore",
     tabBarOptions: {
       style: {
         //light
@@ -57,4 +61,17 @@ const Routes = createBottomTabNavigator(
     }
   }
 );
-export default createAppContainer(Routes);
+
+const AppNavigator = createStackNavigator(
+  {
+    TabBarNavigator: TabBarNavigator
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false
+    }
+  }
+);
+
+export default createAppContainer(AppNavigator);
