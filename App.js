@@ -1,19 +1,34 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect, useContext } from "react";
+import { AppearanceProvider, useColorScheme } from "react-native-appearance";
+import { ThemeProvider, ThemeContext } from "./src/contexts/ThemeContext";
+import { View, Text } from "react-native";
+import * as Font from "expo-font";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+import Routes from "./src/routes/routes";
+
+export default function App(props) {
+  const [theme, setTheme] = useState(useColorScheme());
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    loadFonts();
+  }, []);
+
+  async function loadFonts() {
+    await Font.loadAsync({
+      "sf-text-regular": require("./assets/fonts/SF-Pro-Text-Regular.otf"),
+      "sf-display-bold": require("./assets/fonts/SF-Pro-Display-Bold.otf")
+    });
+    setFontLoaded(true);
+  }
+
+  return fontLoaded ? (
+    <AppearanceProvider>
+      <ThemeProvider>
+        <Routes theme={theme} />
+      </ThemeProvider>
+    </AppearanceProvider>
+  ) : (
+    <View></View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
