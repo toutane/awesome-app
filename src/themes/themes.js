@@ -3,7 +3,10 @@ export const themes = [
   {
     theme: "light",
     backgroundColor: "#fff",
-    gray5: "rgb(242, 242, 247)",
+    gray3: "rgb(199, 199, 204)",
+    gray4: "rgb(209, 209, 214)",
+    gray5: "rgb(229, 229, 234)",
+    gray6: "rgb(242, 242, 247)",
     buttonColor: "rgb(100, 210, 255)",
     fontColor: "#000"
   },
@@ -11,7 +14,10 @@ export const themes = [
   {
     theme: "dark",
     backgroundColor: "#000",
-    gray5: "rgb(28, 28, 30)",
+    gray3: "rgb(72, 72, 74)",
+    gray4: "rgb(58, 58, 60)",
+    gray5: "rgb(44, 44, 46)",
+    gray6: "rgb(28, 28, 30)",
     buttonColor: "rgb(100, 210, 255)",
     fontColor: "#fff"
   }

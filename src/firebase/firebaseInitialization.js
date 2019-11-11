@@ -29,7 +29,7 @@ export default function FirebaseInitialized(props) {
     <AppearanceProvider>
       <ThemeProvider>
         <UserProvider>
-          <Routes theme={props.theme} />
+          <Routes />
         </UserProvider>
       </ThemeProvider>
     </AppearanceProvider>

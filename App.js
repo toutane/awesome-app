@@ -26,7 +26,7 @@ export default function App(props) {
 
   return fontLoaded ? (
     <AuthProvider>
-      <FirebaseInitialization theme={theme} />
+      <FirebaseInitialization />
     </AuthProvider>
   ) : (
     <View></View>

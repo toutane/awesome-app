@@ -63,7 +63,7 @@ export default Explore = props => {
               marginTop: 40,
               height: 200,
               width: 350,
-              backgroundColor: theme.gray5,
+              backgroundColor: theme.gray6,
               borderRadius: 10,
               justifyContent: "center"
             }}
@@ -84,6 +84,46 @@ export default Explore = props => {
               onPress={() => switchTheme()}
             />
           </View>
+          <View
+            style={{
+              marginTop: 30,
+              height: 200,
+              width: 350,
+              backgroundColor: theme.gray6,
+              borderRadius: 10,
+              justifyContent: "center"
+            }}
+          />
+          <View
+            style={{
+              marginTop: 30,
+              height: 200,
+              width: 350,
+              backgroundColor: theme.gray6,
+              borderRadius: 10,
+              justifyContent: "center"
+            }}
+          />
+          <View
+            style={{
+              marginTop: 30,
+              height: 200,
+              width: 350,
+              backgroundColor: theme.gray6,
+              borderRadius: 10,
+              justifyContent: "center"
+            }}
+          />
+          <View
+            style={{
+              marginTop: 30,
+              height: 200,
+              width: 350,
+              backgroundColor: theme.gray6,
+              borderRadius: 10,
+              justifyContent: "center"
+            }}
+          />
         </View>
       </ScrollView>
       <FadeHeader header="Explore" scrollY={scrollY} />

@@ -3,7 +3,6 @@ import { Button, View, Text } from "react-native";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { AuthContext } from "../contexts/AuthContext";
 import { UserContext } from "../contexts/UserContext";
-import firebase from "../firebase/firebase";
 
 export default Library = props => {
   const { theme, switchTheme } = useContext(ThemeContext);
@@ -33,7 +32,6 @@ export default Library = props => {
             : userData.username + ","
           : null}{" "}
         Pas de séries TV ni de films
-        {/* , {userData.name === undefined ? "anonymous" : userData.name} */}
       </Text>
       <Button
         title="Go to Explore screen"
