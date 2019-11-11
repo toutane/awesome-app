@@ -54,7 +54,7 @@ export default FadeHeader = props => {
       >
         <BlurView
           tint={theme.theme}
-          intensity={200}
+          intensity={100}
           style={{
             zIndex: 8,
             height: 100,
