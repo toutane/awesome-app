@@ -47,9 +47,9 @@ const TabBarNavigator = createBottomTabNavigator(
     tabBarOptions: {
       style: {
         //light
-        backgroundColor: "rgb(242, 242, 247)",
+        // backgroundColor: "rgb(242, 242, 247)",
         // dark
-        // backgroundColor: "rgb(17, 17, 17)",
+        backgroundColor: "rgb(17, 17, 17)",
         borderTopColor: "transparent"
       },
       activeTintColor: {

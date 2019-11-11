@@ -14,7 +14,11 @@ const ExploreStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Explore"
+    initialRouteName: "Explore",
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false
+    }
   }
 );
 

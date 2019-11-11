@@ -37,24 +37,35 @@ export default Library = props => {
       </Text>
       <Button
         title="Go to Explore screen"
+        color={theme.buttonColor}
         onPress={() => props.navigation.navigate("Explore")}
       />
-      <Button title="Switch theme" onPress={() => switchTheme()} />
+      <Button
+        title="Switch theme"
+        color={theme.buttonColor}
+        onPress={() => switchTheme()}
+      />
       <Button
         title="Sign In"
+        color={theme.buttonColor}
         onPress={() =>
           login("email@email.com", "123456").catch(error => console.log(error))
         }
       />
       <Button
         title="Sign Up"
+        color={theme.buttonColor}
         onPress={() =>
           register("john", "email@email.com", "123456").catch(error =>
             console.log(error)
           )
         }
       />
-      <Button title="Sign Out" onPress={() => logout()} />
+      <Button
+        title="Sign Out"
+        color={theme.buttonColor}
+        onPress={() => logout()}
+      />
     </View>
   );
 };

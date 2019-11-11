@@ -17,6 +17,8 @@ export default function App(props) {
   async function loadFonts() {
     await Font.loadAsync({
       "sf-text-regular": require("./assets/fonts/SF-Pro-Text-Regular.otf"),
+      "sf-text-medium": require("./assets/fonts/SF-Pro-Text-Medium.otf"),
+      "sf-text-semibold": require("./assets/fonts/SF-Pro-Text-Semibold.otf"),
       "sf-display-bold": require("./assets/fonts/SF-Pro-Display-Bold.otf")
     });
     setFontLoaded(true);

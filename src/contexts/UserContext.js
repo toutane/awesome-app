@@ -9,8 +9,8 @@ const UserProvider = props => {
   const { authenticated } = useContext(AuthContext);
   const [userData, setUserData] = useState({});
   useEffect(() => {
-    loadUserData(firebase.auth.currentUser.uid);
-  }, []);
+    authenticated && loadUserData(firebase.auth.currentUser.uid);
+  }, [authenticated]);
   async function loadUserData(uid) {
     const username = await firebase.db
       .collection("users")
