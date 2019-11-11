@@ -5,7 +5,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 import { screenWidth } from "../utils/dimensions";
 
 export default Explore = props => {
-  const { theme } = useContext(ThemeContext);
+  const { theme, switchTheme } = useContext(ThemeContext);
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   _getHeaderOpacity = () => {
     return scrollY.interpolate({
@@ -53,7 +53,7 @@ export default Explore = props => {
         ])}
         scrollEventThrottle={16}
         snapToAlignment={"start"}
-        snapToInterval={70}
+        snapToInterval={61}
       >
         <View
           style={{
@@ -74,9 +74,19 @@ export default Explore = props => {
           </Animated.Text>
           <View
             style={{
-              marginTop: 60,
+              marginTop: 20,
+              borderColor:
+                theme.theme === "light"
+                  ? "rgba(0, 0, 0, 0.15)"
+                  : "rgba(255, 255, 255, 0.35)",
+              borderWidth: "0.4px"
+            }}
+          />
+          <View
+            style={{
+              marginTop: 40,
               height: 200,
-              width: 330,
+              width: 350,
               backgroundColor: theme.gray5,
               borderRadius: 10,
               justifyContent: "center"
@@ -92,12 +102,17 @@ export default Explore = props => {
               color={theme.buttonColor}
               onPress={() => props.navigation.navigate("Account")}
             />
+            <Button
+              title="Switch theme"
+              color={theme.buttonColor}
+              onPress={() => switchTheme()}
+            />
           </View>
           <View
             style={{
               marginTop: 30,
               height: 200,
-              width: 330,
+              width: 350,
               backgroundColor: theme.gray5,
               borderRadius: 10
             }}
@@ -106,7 +121,7 @@ export default Explore = props => {
             style={{
               marginTop: 30,
               height: 200,
-              width: 330,
+              width: 350,
               backgroundColor: "white",
               borderRadius: 10
             }}
@@ -115,7 +130,7 @@ export default Explore = props => {
             style={{
               marginTop: 30,
               height: 200,
-              width: 330,
+              width: 350,
               backgroundColor: theme.gray5,
               borderRadius: 10
             }}
@@ -124,7 +139,7 @@ export default Explore = props => {
             style={{
               marginTop: 30,
               height: 200,
-              width: 330,
+              width: 350,
               backgroundColor: theme.gray5,
               borderRadius: 10
             }}
@@ -133,7 +148,7 @@ export default Explore = props => {
             style={{
               marginTop: 30,
               height: 200,
-              width: 330,
+              width: 350,
               backgroundColor: theme.gray5,
               borderRadius: 10
             }}
@@ -142,7 +157,7 @@ export default Explore = props => {
             style={{
               marginTop: 30,
               height: 200,
-              width: 330,
+              width: 350,
               backgroundColor: theme.gray5,
               borderRadius: 10
             }}
