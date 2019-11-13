@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Animated } from "react-native";
 import { BlurView } from "expo-blur";
 import { ThemeContext } from "../../contexts/ThemeContext";
@@ -64,18 +64,28 @@ export default SwitchBarHeader = props => {
       useNativeDriver: true
     });
   };
+  _getBlurViewPosition = () => {
+    return props.scrollY.interpolate({
+      inputRange: [0, 10],
+      outputRange: [100, 134],
+      extrapolate: "clamp",
+      useNativeDriver: true
+    });
+  };
   const headerOpacity = this._getHeaderOpacity();
   const headerBlackOpacity = this._getHeaderBlackOpacity();
   const headerTitleOpacity = this._getHeaderTitleOpacity();
   const searchBarPosition = this._getSearchBarPosition();
   const searchBarOpacity = this._getSearchBarOpacity();
   const switchPosition = this._getSwitchPosition();
+  const blurViewPosition = this._getSwitchPosition();
   return (
     <View style={{ zIndex: 100, position: "absolute" }}>
       <Animated.View
         style={{
           zIndex: 10,
           position: "absolute",
+          height: blurViewPosition,
           top: 0,
           opacity: headerOpacity
         }}
@@ -85,14 +95,15 @@ export default SwitchBarHeader = props => {
           intensity={100}
           style={{
             zIndex: 8,
-            height: 135,
+            // height: 134,
+            height: "134%",
             width: screenWidth
           }}
         />
       </Animated.View>
       <Animated.View
         style={{
-          zIndex: 9,
+          // zIndex: 9,
           height: 100,
           width: screenWidth,
           backgroundColor: theme.backgroundColor,

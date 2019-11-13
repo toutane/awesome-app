@@ -1,8 +1,15 @@
 import React, { useState, useContext } from "react";
-import { Button, View, ScrollView, Animated } from "react-native";
+import {
+  Button,
+  View,
+  ScrollView,
+  Animated,
+  TouchableOpacity
+} from "react-native";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { CardContext } from "../../contexts/CardContext";
 import { screenHeight } from "../../utils/dimensions";
+import { FontAwesome } from "@expo/vector-icons";
 
 import ExploreRecentFlatList from "./recent/exploreRecentFlatList";
 import ExplorePopularFlatList from "./popular/explorePopularFlatList";
@@ -41,7 +48,9 @@ export default ExploreScrollView = props => {
           style={{
             marginHorizontal: 32,
             marginTop: 100,
-            justifyContent: "center"
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "row"
           }}
         >
           <Animated.Text
@@ -54,6 +63,17 @@ export default ExploreScrollView = props => {
           >
             Explore
           </Animated.Text>
+          <Animated.View style={{ opacity: titleOpacity }}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Account")}
+            >
+              <FontAwesome
+                name="user-circle-o"
+                size={35}
+                color={theme.buttonColor}
+              />
+            </TouchableOpacity>
+          </Animated.View>
           {/* <View
             style={{
               marginTop: 20,
