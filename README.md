@@ -1,6 +1,6 @@
 # awesome-app
 
-awesome react-native app to share ideas 💡
+awesome ⚛️ native app to share ideas 💡
 
 ## Install
 
