@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, Animated } from "react-native";
+import { Button, Icon, Text } from "native-base";
 import { BlurView } from "expo-blur";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { screenWidth } from "../../utils/dimensions";
@@ -73,6 +74,22 @@ export default FadeHeader = props => {
           opacity: headerBlackOpacity
         }}
       />
+      {props.backBtn && (
+        <View style={{ zIndex: 999, position: "absolute", top: 43 }}>
+          <Button
+            transparent
+            onPress={() => props.navigation.navigate(props.backHeader)}
+          >
+            <Icon
+              style={{ marginRight: 0, color: theme.buttonColor }}
+              name="arrow-back"
+            />
+            <Text style={{ right: 10, color: theme.buttonColor }}>
+              {props.backHeader}
+            </Text>
+          </Button>
+        </View>
+      )}
       <View
         style={{
           zIndex: 20,

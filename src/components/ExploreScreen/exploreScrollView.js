@@ -86,9 +86,9 @@ export default ExploreScrollView = props => {
           /> */}
         </View>
         {tab === "Recent" ? (
-          <ExploreRecentFlatList theme={theme} data={cards} />
+          <ExploreRecentFlatList theme={theme} data={cards} {...props} />
         ) : (
-          <ExplorePopularFlatList theme={theme} data={cards} />
+          <ExplorePopularFlatList theme={theme} data={cards} {...props} />
         )}
       </ScrollView>
       <SwitchBarHeader

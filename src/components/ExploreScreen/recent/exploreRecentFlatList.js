@@ -20,6 +20,11 @@ export default ExploreRecentFlatList = props => {
             borderRadius: 10,
             justifyContent: "center"
           }}
+          onPress={() =>
+            props.navigation.navigate("CardView", {
+              cardData: item
+            })
+          }
         >
           <Text
             style={{
