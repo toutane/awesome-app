@@ -7,21 +7,28 @@ const { Provider } = UserContext;
 
 const UserProvider = props => {
   const { authenticated } = useContext(AuthContext);
-  const [userData, setUserData] = useState({});
+  const [currentUserData, setCurrentUserData] = useState({});
+  const [currentUserId, setCurrentUserId] = useState("");
+
   useEffect(() => {
-    authenticated && loadUserData(firebase.auth.currentUser.uid);
+    authenticated
+      ? (loadUserData(firebase.auth.currentUser.uid),
+        setCurrentUserId(firebase.auth.currentUser.uid))
+      : setCurrentUserId("");
   }, [authenticated]);
+
   async function loadUserData(uid) {
-    const username = await firebase.db
+    const user = await firebase.db
       .collection("users")
       .doc(uid)
       .get();
-    return setUserData(username.data());
+    return setCurrentUserData(user.data());
   }
   return (
     <Provider
       value={{
-        userData
+        currentUserId,
+        currentUserData
       }}
     >
       {props.children}
