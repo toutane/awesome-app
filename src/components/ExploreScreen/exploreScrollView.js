@@ -20,7 +20,7 @@ export default ExploreScrollView = props => {
   const { cards } = useContext(CardContext);
 
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-  const [tab, setTab] = useState("Recent");
+  const [tab, setTab] = useState("Popular");
 
   _getTitleOpacity = () => {
     return scrollY.interpolate({

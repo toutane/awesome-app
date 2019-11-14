@@ -7,7 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 export default Library = props => {
   const { theme, switchTheme } = useContext(ThemeContext);
   const { authenticated, register, login, logout } = useContext(AuthContext);
-  const { userData } = useContext(UserContext);
+  const { currentUserData } = useContext(UserContext);
   return (
     <View
       style={{
@@ -27,9 +27,9 @@ export default Library = props => {
         }}
       >
         {authenticated
-          ? userData.username === undefined
+          ? currentUserData.username === undefined
             ? ""
-            : userData.username + ","
+            : currentUserData.username + ","
           : null}{" "}
         Pas de séries TV ni de films
       </Text>
