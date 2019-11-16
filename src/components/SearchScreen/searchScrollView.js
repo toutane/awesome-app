@@ -51,8 +51,8 @@ export default SearchScrollView = props => {
             Search
           </Animated.Text>
         </View>
-        <PopularScrollView theme={theme} />
-        <RecentScrollView theme={theme} />
+        <PopularScrollView theme={theme} {...props} />
+        <RecentScrollView theme={theme} {...props} />
       </ScrollView>
       <SearchBarHeader
         header="Search"

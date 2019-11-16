@@ -12,7 +12,9 @@ export default ExplorePopularFlatList = props => {
         if (a.views < b.views) return 1;
         return 0;
       })}
-      renderItem={({ item, index }) => <Card item={item} {...props} />}
+      renderItem={({ item, index }) => (
+        <Card item={item} {...props} back="Explore" />
+      )}
       numColumns={2}
       keyExtractor={(item, index) => index.toString()}
     />

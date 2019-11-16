@@ -8,8 +8,9 @@ const { Provider } = CardContext;
 
 const CardProvider = props => {
   const { authenticated } = useContext(AuthContext);
-  const { currentUserId } = useContext(UserContext);
+  const { currentUserId, currentUserData } = useContext(UserContext);
   const [cards, setCards] = useState([]);
+  const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
     cardsListenToChanges();
@@ -19,10 +20,30 @@ const CardProvider = props => {
     firebase.db.collection("cards").onSnapshot(() => loadCards());
   }
 
+  async function searchesListenToChanges(searches, max) {
+    firebase.db
+      .collection("cards")
+      .where("id", "in", searches.slice(0, max))
+      .onSnapshot(() => loadRecentSearches(searches, max));
+  }
+
   async function loadCards() {
     const cards = await firebase.db.collection("cards").get();
     return setCards(
       cards.docs.map(doc => ({
+        ...doc.data(),
+        ...{ id: doc.id }
+      }))
+    );
+  }
+
+  async function loadRecentSearches(searches, max) {
+    const search = await firebase.db
+      .collection("cards")
+      .where("id", "in", searches.slice(0, max))
+      .get();
+    setRecentSearches(
+      search.docs.map(doc => ({
         ...doc.data(),
         ...{ id: doc.id }
       }))
@@ -61,7 +82,10 @@ const CardProvider = props => {
         cards,
         setCards,
         cardViewer,
-        cardLover
+        cardLover,
+        searchesListenToChanges,
+        recentSearches,
+        loadCards
       }}
     >
       {props.children}

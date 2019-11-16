@@ -1,7 +1,22 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button, View, Text, ScrollView, Animated } from "react-native";
+import { Button, View, Text, ScrollView, FlatList } from "react-native";
+
+import { CardContext } from "../../../contexts/CardContext";
+import { UserContext } from "../../../contexts/UserContext";
+
+import Card from "../../Cards/card";
 
 export default RecentScrollView = props => {
+  const { recentSearches, searchesListenToChanges } = useContext(CardContext);
+  const { currentUserData } = useContext(UserContext);
+
+  useEffect(() => loadData(), [currentUserData]);
+
+  function loadData() {
+    currentUserData.searches !== undefined &&
+      searchesListenToChanges(currentUserData.searches, 3);
+  }
+
   return (
     <View>
       <View
@@ -21,7 +36,14 @@ export default RecentScrollView = props => {
         >
           Recent searches
         </Text>
-        <Button title="All" />
+        <Button
+          title="All"
+          onPress={() =>
+            props.navigation.navigate("RecentSearches", {
+              recentSearches: recentSearches
+            })
+          }
+        />
       </View>
       <ScrollView
         style={{ zIndex: 1 }}
@@ -30,37 +52,24 @@ export default RecentScrollView = props => {
         snapToAlignment={"center"}
         snapToInterval={350}
       >
-        <View
-          style={{
-            marginLeft: 32,
-            height: 200,
-            width: 160,
-            backgroundColor: "rgb(255, 159, 10)",
-            // backgroundColor: props.theme.gray6,
-            borderRadius: 10,
-            justifyContent: "center"
-          }}
-        />
-        <View
-          style={{
-            marginLeft: 32,
-            height: 200,
-            width: 160,
-            backgroundColor: "rgb(191, 90, 242)",
-            borderRadius: 10,
-            justifyContent: "center"
-          }}
-        />
-        <View
-          style={{
-            marginRight: 32,
-            marginLeft: 32,
-            height: 200,
-            width: 160,
-            backgroundColor: props.theme.gray6,
-            borderRadius: 10,
-            justifyContent: "center"
-          }}
+        <FlatList
+          horizontal={true}
+          style={{ marginTop: 5, marginBottom: 110 }}
+          data={recentSearches.sort(function(a, b) {
+            if (a.creation_date > b.creation_date) return -1;
+            if (a.creation_date < b.creation_date) return 1;
+            return 0;
+          })}
+          renderItem={({ item, index }) => (
+            <Card
+              {...props}
+              item={item}
+              horizontal={true}
+              back="Search"
+              latest={recentSearches.length - 1 === index ? true : null}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
         />
       </ScrollView>
     </View>

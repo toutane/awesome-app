@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import BottomTabBar from "../components/tabBars/bottomTabBar";
 
 import ExploreStack from "./ExploreNavigator";
+import SearchStack from "./SearchNavigator";
 import CardNavigator from "./CardNavigator";
 
 import Library from "../views/Library";
@@ -21,7 +22,7 @@ const TabBarNavigator = createBottomTabNavigator(
       screen: ExploreStack
     },
     Search: {
-      screen: Search
+      screen: SearchStack
     }
   },
 
@@ -45,7 +46,7 @@ const TabBarNavigator = createBottomTabNavigator(
         );
       }
     }),
-    initialRouteName: "Explore",
+    initialRouteName: "Search",
     tabBarComponent: props => (
       <BottomTabBar
         {...props}

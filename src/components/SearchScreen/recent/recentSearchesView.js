@@ -1,21 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, ScrollView, Animated } from "react-native";
-import { ThemeContext } from "../../contexts/ThemeContext";
-import { screenHeight } from "../../utils/dimensions";
+import { ThemeContext } from "../../../contexts/ThemeContext";
+import { screenHeight } from "../../../utils/dimensions";
 
-import FadeHeader from "../headers/fadeHeader";
+import FadeHeader from "../../headers/fadeHeader";
+import RecentSearchesFlatList from "./recentSearchesFlatList";
 
-export default CardView = props => {
+export default RecentSearchesView = props => {
   const { theme } = useContext(ThemeContext);
 
-  const [card, setCard] = useState({});
-  const [headerData, setHeaderData] = useState("");
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-
-  useEffect(() => {
-    setCard(props.navigation.getParam("cardData")),
-      setHeaderData(props.navigation.getParam("headerData"));
-  }, []);
 
   _getTitleOpacity = () => {
     return scrollY.interpolate({
@@ -55,15 +49,20 @@ export default CardView = props => {
               color: theme.fontColor
             }}
           >
-            {card.title}
+            Recent searches
           </Animated.Text>
         </View>
+        <RecentSearchesFlatList
+          theme={theme}
+          data={props.navigation.getParam("recentSearches")}
+          {...props}
+        />
       </ScrollView>
       <FadeHeader
         {...props}
-        backHeader={headerData}
+        backHeader="Search"
         backBtn={true}
-        header={card.title}
+        header="Recent searches"
         scrollY={scrollY}
       />
     </View>

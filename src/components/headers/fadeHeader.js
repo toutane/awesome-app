@@ -78,7 +78,13 @@ export default FadeHeader = props => {
         <View style={{ zIndex: 999, position: "absolute", top: 43 }}>
           <Button
             transparent
-            onPress={() => props.navigation.navigate(props.backHeader)}
+            onPress={() =>
+              props.navigation.navigate(
+                props.backHeader !== "Recent"
+                  ? props.backHeader
+                  : "RecentSearches"
+              )
+            }
           >
             <Icon
               style={{ marginRight: 0, color: theme.buttonColor }}
