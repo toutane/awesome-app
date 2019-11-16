@@ -7,6 +7,7 @@ import SearchBarHeader from "../headers/searchBarHeader";
 
 import PopularScrollView from "./popular/popularScrollView";
 import RecentScrollView from "./recent/recentScrollView";
+import SearchFlatList from "./searchFlatList";
 
 export default SearchScrollView = props => {
   const { theme } = useContext(ThemeContext);
@@ -51,8 +52,14 @@ export default SearchScrollView = props => {
             Search
           </Animated.Text>
         </View>
-        <PopularScrollView theme={theme} {...props} />
-        <RecentScrollView theme={theme} {...props} />
+        {props.search === "" ? (
+          <View>
+            <PopularScrollView theme={theme} {...props} />
+            <RecentScrollView theme={theme} {...props} />
+          </View>
+        ) : (
+          <SearchFlatList theme={theme} search={props.search} {...props} />
+        )}
       </ScrollView>
       <SearchBarHeader
         header="Search"

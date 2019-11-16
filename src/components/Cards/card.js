@@ -8,14 +8,17 @@ import { CardContext } from "../../contexts/CardContext";
 import CardInfo from "./cardInfo";
 
 export default Card = props => {
-  const { currentUserId } = useContext(UserContext);
-  const { cardViewer, cardLover } = useContext(CardContext);
+  const { currentUserId, currentUserData } = useContext(UserContext);
+  const { cardViewer, cardLover, addToRecentSearch } = useContext(CardContext);
 
-  handleCard = (card, back) => {
+  handleCard = (card, back, search) => {
     props.navigation.navigate("CardView", {
       cardData: card,
       headerData: back
     });
+    currentUserId !== "" &&
+      search &&
+      addToRecentSearch(card.id, currentUserData.searches, card.searched);
     cardViewer(card.id, card.views, card.viewers);
   };
   handleHeart = card => {
@@ -25,7 +28,6 @@ export default Card = props => {
     <View>
       <TouchableOpacity
         style={{
-          // marginTop: 15,
           marginTop: props.horizontal ? 0 : 30,
           marginLeft: 32,
           marginRight: props.horizontal ? (props.latest ? 32 : 0) : 0,
@@ -42,7 +44,7 @@ export default Card = props => {
           shadowRadius: "10px",
           shadowColor: props.theme.fontColor
         }}
-        onPress={() => handleCard(props.item, props.back)}
+        onPress={() => handleCard(props.item, props.back, props.isSearching)}
       >
         <Text
           style={{

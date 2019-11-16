@@ -3,13 +3,19 @@ import { View, ScrollView, Animated } from "react-native";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { screenHeight } from "../../../utils/dimensions";
 
+import { CardContext } from "../../../contexts/CardContext";
+
 import FadeHeader from "../../headers/fadeHeader";
 import RecentSearchesFlatList from "./recentSearchesFlatList";
 
 export default RecentSearchesView = props => {
   const { theme } = useContext(ThemeContext);
+  const { recentSearches } = useContext(CardContext);
 
+  const [cards, setCards] = useState([]);
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+
+  useEffect(() => setCards(recentSearches), [recentSearches]);
 
   _getTitleOpacity = () => {
     return scrollY.interpolate({
@@ -52,11 +58,7 @@ export default RecentSearchesView = props => {
             Recent searches
           </Animated.Text>
         </View>
-        <RecentSearchesFlatList
-          theme={theme}
-          data={props.navigation.getParam("recentSearches")}
-          {...props}
-        />
+        <RecentSearchesFlatList theme={theme} data={cards} {...props} />
       </ScrollView>
       <FadeHeader
         {...props}

@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "../firebase/firebase";
+
 import { AuthContext } from "./AuthContext";
 import { UserContext } from "./UserContext";
 
 const CardContext = React.createContext();
 const { Provider } = CardContext;
 
+const moment = require("moment");
+
 const CardProvider = props => {
   const { authenticated } = useContext(AuthContext);
   const { currentUserId, currentUserData } = useContext(UserContext);
   const [cards, setCards] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
@@ -20,11 +24,11 @@ const CardProvider = props => {
     firebase.db.collection("cards").onSnapshot(() => loadCards());
   }
 
-  async function searchesListenToChanges(searches, max) {
+  async function searchesListenToChanges(searches) {
     firebase.db
       .collection("cards")
-      .where("id", "in", searches.slice(0, max))
-      .onSnapshot(() => loadRecentSearches(searches, max));
+      .where("id", "in", searches)
+      .onSnapshot(() => loadRecentSearches(searches));
   }
 
   async function loadCards() {
@@ -37,10 +41,10 @@ const CardProvider = props => {
     );
   }
 
-  async function loadRecentSearches(searches, max) {
+  async function loadRecentSearches(searches) {
     const search = await firebase.db
       .collection("cards")
-      .where("id", "in", searches.slice(0, max))
+      .where("id", "in", searches)
       .get();
     setRecentSearches(
       search.docs.map(doc => ({
@@ -49,6 +53,29 @@ const CardProvider = props => {
       }))
     );
   }
+
+  addToRecentSearch = (id, searches, searched) => {
+    firebase.db
+      .collection("users")
+      .doc(currentUserId)
+      .update({
+        searches: authenticated
+          ? searches.includes(id)
+            ? searches
+            : searches.concat([id])
+          : searches
+      });
+    firebase.db
+      .collection("cards")
+      .doc(id)
+      .update({
+        searched: authenticated
+          ? searched
+              .filter(doc => doc.uid !== currentUserId)
+              .concat([{ uid: currentUserId, date: moment().format() }])
+          : searched
+      });
+  };
 
   cardViewer = (docId, views, viewers) => {
     viewers.includes(currentUserId)
@@ -85,7 +112,8 @@ const CardProvider = props => {
         cardLover,
         searchesListenToChanges,
         recentSearches,
-        loadCards
+        loadCards,
+        addToRecentSearch
       }}
     >
       {props.children}

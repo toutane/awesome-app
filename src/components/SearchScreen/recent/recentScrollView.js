@@ -8,13 +8,13 @@ import Card from "../../Cards/card";
 
 export default RecentScrollView = props => {
   const { recentSearches, searchesListenToChanges } = useContext(CardContext);
-  const { currentUserData } = useContext(UserContext);
+  const { currentUserData, currentUserId } = useContext(UserContext);
 
   useEffect(() => loadData(), [currentUserData]);
 
   function loadData() {
     currentUserData.searches !== undefined &&
-      searchesListenToChanges(currentUserData.searches, 3);
+      searchesListenToChanges(currentUserData.searches);
   }
 
   return (
@@ -40,7 +40,7 @@ export default RecentScrollView = props => {
           title="All"
           onPress={() =>
             props.navigation.navigate("RecentSearches", {
-              recentSearches: recentSearches
+              currentUserId: currentUserId
             })
           }
         />
@@ -54,19 +54,26 @@ export default RecentScrollView = props => {
       >
         <FlatList
           horizontal={true}
-          style={{ marginTop: 5, marginBottom: 110 }}
-          data={recentSearches.sort(function(a, b) {
-            if (a.creation_date > b.creation_date) return -1;
-            if (a.creation_date < b.creation_date) return 1;
-            return 0;
-          })}
+          style={{ marginTop: 5 }}
+          data={recentSearches
+            .sort(function(a, b) {
+              let c = a.searched.filter(doc => doc.uid === currentUserId);
+              let d = b.searched.filter(doc => doc.uid === currentUserId);
+              if (c[0].date > d[0].date) return -1;
+              if (c[0].date < d[0].date) return 1;
+              return 0;
+            })
+            .slice(0, 3)}
           renderItem={({ item, index }) => (
             <Card
               {...props}
               item={item}
               horizontal={true}
               back="Search"
-              latest={recentSearches.length - 1 === index ? true : null}
+              isSearching={true}
+              latest={
+                recentSearches.slice(0, 3).length - 1 === index ? true : null
+              }
             />
           )}
           keyExtractor={(item, index) => index.toString()}

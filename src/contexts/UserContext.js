@@ -12,11 +12,17 @@ const UserProvider = props => {
 
   useEffect(() => {
     authenticated
-      ? (loadUserData(firebase.auth.currentUser.uid),
+      ? (listenUserData(firebase.auth.currentUser.uid),
         setCurrentUserId(firebase.auth.currentUser.uid))
       : setCurrentUserId("");
   }, [authenticated]);
 
+  function listenUserData(uid) {
+    firebase.db
+      .collection("users")
+      .doc(uid)
+      .onSnapshot(() => loadUserData(uid));
+  }
   async function loadUserData(uid) {
     const user = await firebase.db
       .collection("users")
