@@ -46,7 +46,7 @@ const TabBarNavigator = createBottomTabNavigator(
         );
       }
     }),
-    initialRouteName: "Explore",
+    initialRouteName: "Search",
     tabBarComponent: props => (
       <BottomTabBar
         {...props}

@@ -22,7 +22,7 @@ export default SearchBar = props => {
       <TextInput
         style={{
           fontSize: 17,
-          width: "100%",
+          width: "89%",
           color: theme.fontColor,
           height: 35,
           marginLeft: 5
@@ -33,6 +33,14 @@ export default SearchBar = props => {
         value={props.value}
         selectionColor={theme.buttonColor}
       />
+      {props.value !== "" ? (
+        <Ionicons
+          name="ios-close-circle"
+          size={20}
+          color="gray"
+          onPress={() => props.reset()}
+        />
+      ) : null}
     </View>
   );
 };

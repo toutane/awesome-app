@@ -66,6 +66,7 @@ export default SearchScrollView = props => {
         scrollY={scrollY}
         onChangeText={e => props.setSearch(e)}
         value={props.search}
+        reset={() => props.setSearch("")}
       />
     </View>
   );

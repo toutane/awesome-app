@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 68745,
-  "expoServerNgrokUrl": "https://p7-edq.charlesantoineleger.awesome-app.exp.direct",
-  "packagerNgrokUrl": "https://packager.p7-edq.charlesantoineleger.awesome-app.exp.direct",
-  "ngrokPid": 68769
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

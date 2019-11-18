@@ -124,7 +124,7 @@ export default SearchBarHeader = props => {
           opacity: searchBarOpacity
         }}
       >
-        <SearchBar onChangeText={props.onChangeText} value={props.value} />
+        <SearchBar {...props} />
       </Animated.View>
     </View>
   );
