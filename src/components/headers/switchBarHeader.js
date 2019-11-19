@@ -59,6 +59,14 @@ export default SwitchBarHeader = props => {
   _getSwitchPosition = () => {
     return props.scrollY.interpolate({
       inputRange: [0, 60],
+      outputRange: [0, 57.5],
+      extrapolate: "clamp",
+      useNativeDriver: true
+    });
+  };
+  _getSwitchPositionBlur = () => {
+    return props.scrollY.interpolate({
+      inputRange: [0, 60],
       outputRange: [0, 100],
       extrapolate: "clamp",
       useNativeDriver: true
@@ -78,7 +86,7 @@ export default SwitchBarHeader = props => {
   const searchBarPosition = this._getSearchBarPosition();
   const searchBarOpacity = this._getSearchBarOpacity();
   const switchPosition = this._getSwitchPosition();
-  const blurViewPosition = this._getSwitchPosition();
+  const blurViewPosition = this._getSwitchPositionBlur();
   return (
     <View style={{ zIndex: 100, position: "absolute" }}>
       <Animated.View
