@@ -6,10 +6,13 @@ import {
   Animated,
   TouchableOpacity
 } from "react-native";
+import { Thumbnail } from "native-base";
+import { FontAwesome } from "@expo/vector-icons";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { CardContext } from "../../contexts/CardContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import { UserContext } from "../../contexts/UserContext";
 import { screenHeight } from "../../utils/dimensions";
-import { FontAwesome } from "@expo/vector-icons";
 
 import ExploreRecentFlatList from "./recent/exploreRecentFlatList";
 import ExplorePopularFlatList from "./popular/explorePopularFlatList";
@@ -18,8 +21,11 @@ import SwitchBarHeader from "../headers/switchBarHeader";
 export default ExploreScrollView = props => {
   const { theme } = useContext(ThemeContext);
   const { cards } = useContext(CardContext);
+  const { authenticated } = useContext(AuthContext);
+  const { currentUserData } = useContext(UserContext);
 
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+
   const [tab, setTab] = useState("Popular");
 
   _getTitleOpacity = () => {
@@ -67,23 +73,17 @@ export default ExploreScrollView = props => {
             <TouchableOpacity
               onPress={() => props.navigation.navigate("Account")}
             >
-              <FontAwesome
-                name="user-circle-o"
-                size={35}
-                color={theme.buttonColor}
-              />
+              {authenticated ? (
+                <Thumbnail small source={{ uri: currentUserData.avatar }} />
+              ) : (
+                <FontAwesome
+                  name="user-circle-o"
+                  size={35}
+                  color={theme.buttonColor}
+                />
+              )}
             </TouchableOpacity>
           </Animated.View>
-          {/* <View
-            style={{
-              marginTop: 20,
-              borderColor:
-                theme.theme === "light"
-                  ? "rgba(0, 0, 0, 0.15)"
-                  : "rgba(255, 255, 255, 0.35)",
-              borderWidth: "0.4px"
-            }}
-          /> */}
         </View>
         {tab === "Recent" ? (
           <ExploreRecentFlatList theme={theme} data={cards} {...props} />
@@ -92,6 +92,8 @@ export default ExploreScrollView = props => {
         )}
       </ScrollView>
       <SwitchBarHeader
+        {...props}
+        authenticated={authenticated}
         header="Explore"
         scrollY={scrollY}
         tab={tab}

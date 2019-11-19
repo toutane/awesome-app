@@ -3,14 +3,16 @@ import { Button, View, Text, ScrollView, FlatList } from "react-native";
 
 import { CardContext } from "../../../contexts/CardContext";
 import { UserContext } from "../../../contexts/UserContext";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 import Card from "../../Cards/card";
 
 export default RecentScrollView = props => {
+  const { authenticated } = useContext(AuthContext);
   const { recentSearches, searchesListenToChanges } = useContext(CardContext);
   const { currentUserData, currentUserId } = useContext(UserContext);
 
-  useEffect(() => loadData(), [currentUserData]);
+  useEffect(() => loadData(), [authenticated, currentUserData]);
 
   function loadData() {
     currentUserData.searches !== undefined &&
@@ -55,15 +57,19 @@ export default RecentScrollView = props => {
         <FlatList
           horizontal={true}
           style={{ marginTop: 5 }}
-          data={recentSearches
-            .sort(function(a, b) {
-              let c = a.searched.filter(doc => doc.uid === currentUserId);
-              let d = b.searched.filter(doc => doc.uid === currentUserId);
-              if (c[0].date > d[0].date) return -1;
-              if (c[0].date < d[0].date) return 1;
-              return 0;
-            })
-            .slice(0, 3)}
+          data={
+            recentSearches !== undefined && authenticated
+              ? recentSearches
+                  .sort(function(a, b) {
+                    let c = a.searched.filter(doc => doc.uid === currentUserId);
+                    let d = b.searched.filter(doc => doc.uid === currentUserId);
+                    if (c[0].date > d[0].date) return -1;
+                    if (c[0].date < d[0].date) return 1;
+                    return 0;
+                  })
+                  .slice(0, 3)
+              : []
+          }
           renderItem={({ item, index }) => (
             <Card
               {...props}

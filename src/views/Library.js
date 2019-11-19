@@ -29,9 +29,9 @@ export default Library = props => {
         {authenticated
           ? currentUserData.username === undefined
             ? ""
-            : currentUserData.username + ","
-          : null}{" "}
-        Pas de séries TV ni de films
+            : currentUserData.username + ", "
+          : null}
+        pas de card pour le moment 📝
       </Text>
       <Button
         title="Go to Explore screen"

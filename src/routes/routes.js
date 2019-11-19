@@ -9,6 +9,7 @@ import BottomTabBar from "../components/tabBars/bottomTabBar";
 import ExploreStack from "./ExploreNavigator";
 import SearchStack from "./SearchNavigator";
 import CardNavigator from "./CardNavigator";
+import CreatorNavigator from "./CreatorNavigator";
 
 import Library from "../views/Library";
 import Search from "../views/Search";
@@ -46,7 +47,7 @@ const TabBarNavigator = createBottomTabNavigator(
         );
       }
     }),
-    initialRouteName: "Search",
+    initialRouteName: "Explore",
     tabBarComponent: props => (
       <BottomTabBar
         {...props}
@@ -60,7 +61,8 @@ const TabBarNavigator = createBottomTabNavigator(
 const AppNavigator = createStackNavigator(
   {
     TabBarNavigator: TabBarNavigator,
-    CardNavigator: CardNavigator
+    CardNavigator: CardNavigator,
+    CreatorNavigator: CreatorNavigator
   },
   {
     headerMode: "none",

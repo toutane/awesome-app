@@ -1,35 +1,41 @@
-import React from "react";
-import { Button, Text, View, Image } from "react-native";
+import React, { useContext } from "react";
+import { Button, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-class Account extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: "Account"
-    };
-  };
-  render() {
-    return (
-      <View
+import { ThemeContext } from "../contexts/ThemeContext";
+import { UserContext } from "../contexts/UserContext";
+
+export default Account = props => {
+  const { theme } = useContext(ThemeContext);
+  const { currentUserData } = useContext(UserContext);
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: theme.backgroundColor
+      }}
+    >
+      <Text
         style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center"
+          fontSize: 60,
+          fontFamily: "sf-display-bold",
+          color: theme.fontColor
         }}
       >
-        <Text style={{ fontSize: 60, fontFamily: "sf-display-bold" }}>
-          Account
-        </Text>
-        <Button
-          title="Go to Explore screen"
-          onPress={() => this.props.navigation.navigate("Explore")}
-        />
-        <Button
-          title="Go to Search screen"
-          onPress={() => this.props.navigation.navigate("Search")}
-        />
-      </View>
-    );
-  }
-}
-export default Account;
+        👋 {currentUserData.username}
+      </Text>
+      <Button
+        color={theme.buttonColor}
+        title="Go to Explore screen"
+        onPress={() => props.navigation.navigate("Explore")}
+      />
+      <Button
+        color={theme.buttonColor}
+        title="Go to Search screen"
+        onPress={() => props.navigation.navigate("Search")}
+      />
+    </View>
+  );
+};

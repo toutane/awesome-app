@@ -13,7 +13,6 @@ const CardProvider = props => {
   const { authenticated } = useContext(AuthContext);
   const { currentUserId, currentUserData } = useContext(UserContext);
   const [cards, setCards] = useState([]);
-  const [searchResult, setSearchResult] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
