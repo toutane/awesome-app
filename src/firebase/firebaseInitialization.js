@@ -6,6 +6,7 @@ import { View, Button, Text } from "react-native";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import { UserProvider } from "../contexts/UserContext";
 import { CardProvider } from "../contexts/CardContext";
+import { CardCreatorProvider } from "../contexts/CardCreatorContext";
 
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -31,7 +32,9 @@ export default function FirebaseInitialized(props) {
       <ThemeProvider>
         <UserProvider>
           <CardProvider>
-            <Routes />
+            <CardCreatorProvider>
+              <Routes />
+            </CardCreatorProvider>
           </CardProvider>
         </UserProvider>
       </ThemeProvider>

@@ -15,7 +15,11 @@ export default Switch = props => {
         color={
           props.authenticated ? props.theme.buttonColor : props.theme.gray4
         }
-        onPress={() => props.navigation.navigate("CardCreator")}
+        onPress={() =>
+          props.authenticated
+            ? props.navigation.navigate("CardCreator")
+            : alert("You must be authenticated to create a card 🙅‍♂️📝")
+        }
       />
       <TouchableOpacity
         activeOpacity={props.tab === props.tab1 ? 1 : 0}

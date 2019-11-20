@@ -26,7 +26,7 @@ export default ExploreScrollView = props => {
 
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
 
-  const [tab, setTab] = useState("Popular");
+  const [tab, setTab] = useState("Recent");
 
   _getTitleOpacity = () => {
     return scrollY.interpolate({

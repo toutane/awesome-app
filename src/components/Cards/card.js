@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { Thumbnail } from "native-base";
 
+import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import { CardContext } from "../../contexts/CardContext";
 
 import CardInfo from "./cardInfo";
 
 export default Card = props => {
+  const { authenticated } = useContext(AuthContext);
   const { currentUserId, currentUserData } = useContext(UserContext);
   const { cardViewer, cardLover, addToRecentSearch } = useContext(CardContext);
 
@@ -22,7 +24,9 @@ export default Card = props => {
     cardViewer(card.id, card.views, card.viewers);
   };
   handleHeart = card => {
-    cardLover(card.id, card.loves, card.lovers);
+    authenticated
+      ? cardLover(card.id, card.loves, card.lovers)
+      : alert("You must be authenticated to love this card ! 🙅‍♂️💔");
   };
   return (
     <View>
