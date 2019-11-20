@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { CardCreatorContext } from "../../contexts/CardCreatorContext";
 
 export default CardCreator = props => {
   const { theme } = useContext(ThemeContext);
+  const { createCard } = useContext(CardCreatorContext);
 
   return (
     <View
@@ -14,9 +16,20 @@ export default CardCreator = props => {
         justifyContent: "center"
       }}
     >
-      <Text style={{ fontSize: 40, fontFamily: "sf-display-bold" }}>
+      <Text
+        style={{
+          fontSize: 40,
+          fontFamily: "sf-display-bold",
+          color: theme.fontColor
+        }}
+      >
         CARD CREATOR
       </Text>
+      <Button
+        title="Create card !"
+        color={theme.buttonColor}
+        onPress={() => createCard()}
+      />
     </View>
   );
 };
