@@ -4,10 +4,12 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { ThemeContext } from "../contexts/ThemeContext";
 import { UserContext } from "../contexts/UserContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default Account = props => {
   const { theme } = useContext(ThemeContext);
   const { currentUserData } = useContext(UserContext);
+  const { authenticated } = useContext(AuthContext);
   return (
     <View
       style={{
@@ -24,7 +26,9 @@ export default Account = props => {
           color: theme.fontColor
         }}
       >
-        👋 {currentUserData.username}
+        {authenticated
+          ? `👋 ${currentUserData.username}`
+          : "🏜️ nobody's here..."}
       </Text>
       <Button
         color={theme.buttonColor}
