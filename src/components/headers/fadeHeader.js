@@ -4,6 +4,7 @@ import { Button, Icon, Text } from "native-base";
 import { BlurView } from "expo-blur";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { screenWidth } from "../../utils/dimensions";
+import { Ionicons } from "@expo/vector-icons";
 
 export default FadeHeader = props => {
   const { theme } = useContext(ThemeContext);
@@ -118,6 +119,31 @@ export default FadeHeader = props => {
           {props.header}
         </Animated.Text>
       </View>
+      {props.createBtn && (
+        <View style={{ zIndex: 999, position: "absolute", top: 43 }}>
+          <Button
+            transparent
+            onPress={() =>
+              props.navigation.navigate(
+                props.backHeader !== "Recent"
+                  ? props.backHeader
+                  : "RecentSearches"
+              )
+            }
+          >
+            <Ionicons
+              style={{ left: screenWidth - 50 }}
+              name="ios-add-circle-outline"
+              size={35}
+              color={theme.buttonColor}
+              onPress={
+                () => props.createFct()
+                // alert("Card created !😀")
+              }
+            />
+          </Button>
+        </View>
+      )}
     </View>
   );
 };

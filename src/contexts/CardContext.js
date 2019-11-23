@@ -102,6 +102,15 @@ const CardProvider = props => {
       : null;
   };
 
+  deleteCard = cardId => {
+    authenticated
+      ? firebase.db
+          .collection("cards")
+          .doc(cardId)
+          .delete()
+      : alert("You mst be authenticated to delete this card 🙅‍♂️");
+  };
+
   return (
     <Provider
       value={{
@@ -112,7 +121,8 @@ const CardProvider = props => {
         searchesListenToChanges,
         recentSearches,
         loadCards,
-        addToRecentSearch
+        addToRecentSearch,
+        deleteCard
       }}
     >
       {props.children}

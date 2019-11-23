@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { Thumbnail } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
@@ -11,7 +12,9 @@ import CardInfo from "./cardInfo";
 export default Card = props => {
   const { authenticated } = useContext(AuthContext);
   const { currentUserId, currentUserData } = useContext(UserContext);
-  const { cardViewer, cardLover, addToRecentSearch } = useContext(CardContext);
+  const { cardViewer, cardLover, addToRecentSearch, deleteCard } = useContext(
+    CardContext
+  );
 
   handleCard = (card, back, search) => {
     props.navigation.navigate("CardView", {
@@ -50,6 +53,13 @@ export default Card = props => {
         }}
         onPress={() => handleCard(props.item, props.back, props.isSearching)}
       >
+        <Ionicons
+          name="ios-close"
+          size={30}
+          color={"white"}
+          style={{ position: "absolute", top: 10, right: 15 }}
+          onPress={() => deleteCard(props.item.id)}
+        />
         <Text
           style={{
             fontFamily: "sf-display-bold",

@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, ScrollView, Animated } from "react-native";
+import { View, ScrollView, Animated, Text } from "react-native";
 import { ThemeContext } from "../../contexts/ThemeContext";
-import { screenHeight } from "../../utils/dimensions";
+import { screenWidth, screenHeight } from "../../utils/dimensions";
+import HTML from "react-native-render-html";
 
 import FadeHeader from "../headers/fadeHeader";
 
@@ -57,6 +58,9 @@ export default CardView = props => {
           >
             {card.title}
           </Animated.Text>
+        </View>
+        <View style={{ paddingHorizontal: 32 }}>
+          <HTML html={card.text || "<p></p>"} uri="" />
         </View>
       </ScrollView>
       <FadeHeader
