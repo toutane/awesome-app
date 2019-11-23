@@ -13,13 +13,14 @@ const CardCreatorProvider = props => {
   const { authenticated } = useContext(AuthContext);
   const { currentUserId, currentUserData } = useContext(UserContext);
 
-  async function createCard() {
+  async function createCard(cardValue, cardTitle, nav) {
     const newCard = await firebase.db
       .collection("cards")
       .add({
         id: "",
-        title: currentUserData.username + "'s card",
-        text: "this is the card of " + currentUserData.username,
+        title:
+          cardTitle !== "" ? cardTitle : currentUserData.username + "'s card",
+        text: cardValue,
         creation_date: moment().format(),
         color: "red",
         views: 0,
@@ -46,7 +47,11 @@ const CardCreatorProvider = props => {
           .update({
             id: card.id
           });
-      });
+      })
+      .then(
+        () => nav.navigation.navigate("Explore"),
+        alert("Card created !😀")
+      );
   }
   return <Provider value={{ createCard }}>{props.children}</Provider>;
 };
