@@ -41,12 +41,16 @@ class App extends Component {
     super(props);
     this.customStyles = {
       ...defaultStyles,
-      body: { fontSize: 12 },
-      heading: { fontSize: 16 },
-      title: { fontSize: 20 },
-      ol: { fontSize: 12 },
-      ul: { fontSize: 12 },
-      bold: { fontSize: 12, fontWeight: "bold", color: "black" }
+      body: { fontSize: 17 },
+      heading: { fontSize: 20 },
+      title: { fontSize: 34 },
+      ol: { fontSize: 17 },
+      ul: { fontSize: 17 },
+      bold: {
+        fontSize: 17,
+        fontWeight: "bold",
+        color: this.props.theme.fontColor
+      }
     };
     this.state = {
       selectedTag: "body",
@@ -62,11 +66,13 @@ class App extends Component {
         "blue_hl"
       ],
       selectedStyles: [],
+      value: this.props.cardValue
       // value: [getInitialObject()] get empty editor
-      value: convertToObject(
-        '<div><p><span>This is </span><span style="font-weight: bold;">bold</span><span> and </span><span style="font-style: italic;">italic </span><span>text</span></p></div>',
-        this.customStyles
-      )
+      // value: convertToObject(
+      //   this.props.cardValue,
+      //   // '<div><p><span>This is </span><span style="font-weight: bold;">bold</span><span> and </span><span style="font-style: italic;">italic </span><span>text</span></p></div>',
+      //   this.customStyles
+      // )
     };
 
     this.editor = null;
@@ -100,12 +106,15 @@ class App extends Component {
   };
 
   onValueChanged = value => {
-    this.setState(
-      {
-        value: value
-      }
-      // () => console.log(convertToHtmlString(this.state.value))
-    );
+    this.props.setCardValue(value);
+    console.log(this.props.cardValue);
+    // console.log(convertToHtmlString(this.props.cardValue));
+    // this.setState(
+    //   {
+    //     value: value
+    //   }
+    //   // () => console.log(convertToHtmlString(this.state.value))
+    // );
   };
 
   insertImage(url) {
@@ -313,7 +322,7 @@ class App extends Component {
         enabled
         // keyboardVerticalOffset={IS_IOS ? 0 : 0}
         style={{
-          backgroundColor: this.props.theme.gray6,
+          backgroundColor: this.props.theme.backgroundColor,
           flex: 1,
           paddingTop: 20,
           flexDirection: "column",
@@ -328,9 +337,12 @@ class App extends Component {
                 onSelectedTagChanged={this.onSelectedTagChanged}
                 onSelectedStyleChanged={this.onSelectedStyleChanged}
                 value={this.state.value}
-                style={styles.editor}
+                // style={styles.editor}
+                style={{ backgroundColor: this.props.theme.backgroundColor }}
+                // style={{ backgroundColor: this.props.theme.gray6 }}
                 styleList={this.customStyles}
-                foreColor="dimgray" // optional (will override default fore-color)
+                // foreColor="dimgray" // optional (will override default fore-color)
+                foreColor={this.props.theme.fontColor} // optional (will override default fore-color)
                 onValueChanged={this.onValueChanged}
                 onRemoveImage={this.onRemoveImage}
               />
@@ -450,6 +462,7 @@ class App extends Component {
               selectedStyles={this.state.selectedStyles}
               onStyleKeyPress={this.onStyleKeyPress}
               backgroundColor="aliceblue" // optional (will override default backgroundColor)
+              // color={this.props.theme.fontColor} // optional (will override default color)
               color="gray" // optional (will override default color)
               selectedColor="white" // optional (will override default selectedColor)
               selectedBackgroundColor="deepskyblue" // optional (will override default selectedBackgroundColor)
@@ -473,8 +486,8 @@ var styles = StyleSheet.create({
   main: {
     flex: 1,
     marginTop: 110,
-    paddingLeft: 30,
-    paddingRight: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingBottom: 1,
     alignItems: "stretch"
   },
