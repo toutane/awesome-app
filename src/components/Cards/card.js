@@ -19,7 +19,8 @@ export default Card = props => {
   handleCard = (card, back, search) => {
     props.navigation.navigate("CardView", {
       cardData: card,
-      headerData: back
+      headerData: back,
+      handleHeart: handleHeart
     });
     currentUserId !== "" &&
       search &&

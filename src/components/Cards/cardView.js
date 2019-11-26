@@ -1,13 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, ScrollView, Animated, Text } from "react-native";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { UserContext } from "../../contexts/UserContext";
 import { screenWidth, screenHeight } from "../../utils/dimensions";
 import HTML from "react-native-render-html";
 
 import FadeHeader from "../headers/fadeHeader";
+import CardViewInfo from "./cardViewInfo";
 
 export default CardView = props => {
   const { theme } = useContext(ThemeContext);
+  const { currentUserId } = useContext(UserContext);
 
   const [card, setCard] = useState({});
   const [headerData, setHeaderData] = useState("");
@@ -59,8 +62,18 @@ export default CardView = props => {
             {card.title}
           </Animated.Text>
         </View>
+        <CardViewInfo
+          theme={theme}
+          item={props.navigation.getParam("cardData")}
+          currentUserId={currentUserId}
+          handleHeart={props.navigation.getParam("handleHeart")}
+        />
         <View style={{ paddingHorizontal: 32 }}>
-          <HTML html={card.text || "<p></p>"} uri="" />
+          <HTML
+            html={card.text || "<p></p>"}
+            uri=""
+            style={{ fontColor: "white" }}
+          />
         </View>
       </ScrollView>
       <FadeHeader
