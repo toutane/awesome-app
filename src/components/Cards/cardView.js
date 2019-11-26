@@ -69,11 +69,7 @@ export default CardView = props => {
           handleHeart={props.navigation.getParam("handleHeart")}
         />
         <View style={{ paddingHorizontal: 32 }}>
-          <HTML
-            html={card.text || "<p></p>"}
-            uri=""
-            style={{ fontColor: "white" }}
-          />
+          <HTML html={card.text || "<p></p>"} uri="" />
         </View>
       </ScrollView>
       <FadeHeader
