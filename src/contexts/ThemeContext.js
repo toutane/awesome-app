@@ -7,7 +7,7 @@ const { Provider } = ThemeContext;
 
 const ThemeProvider = props => {
   const [theme, setTheme] = useState(
-    useColorScheme() === "light" ? themes[0] : themes[1]
+    useColorScheme() !== "light" ? themes[0] : themes[1]
   );
   function switchTheme() {
     setTheme(theme.theme === "light" ? themes[1] : themes[0]);

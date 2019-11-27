@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default CardViewInfo = props => {
-  return (
+  return props.item.views !== undefined ? (
     <View
       style={{
         flexDirection: "row",
@@ -74,5 +74,7 @@ export default CardViewInfo = props => {
         </Text>
       </TouchableOpacity>
     </View>
+  ) : (
+    <View></View>
   );
 };

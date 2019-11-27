@@ -13,6 +13,7 @@ const CardProvider = props => {
   const { authenticated } = useContext(AuthContext);
   const { currentUserId, currentUserData } = useContext(UserContext);
   const [cards, setCards] = useState([]);
+  const [currentCard, setCurrentCard] = useState({});
   const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
@@ -21,6 +22,16 @@ const CardProvider = props => {
 
   async function cardsListenToChanges() {
     firebase.db.collection("cards").onSnapshot(() => loadCards());
+  }
+
+  async function currentCardListen(cardId) {
+    firebase.db
+      .collection("cards")
+      .doc(cardId)
+      .onSnapshot(
+        () => loadCurrentCard(cardId),
+        console.log(`listen to ${cardId}`)
+      );
   }
 
   async function searchesListenToChanges(searches) {
@@ -38,6 +49,14 @@ const CardProvider = props => {
         ...{ id: doc.id }
       }))
     );
+  }
+
+  async function loadCurrentCard(cardId) {
+    const card = await firebase.db
+      .collection("cards")
+      .doc(cardId)
+      .get();
+    return setCurrentCard(card.data());
   }
 
   async function loadRecentSearches(searches) {
@@ -122,7 +141,9 @@ const CardProvider = props => {
         recentSearches,
         loadCards,
         addToRecentSearch,
-        deleteCard
+        deleteCard,
+        currentCard,
+        currentCardListen
       }}
     >
       {props.children}
