@@ -9,33 +9,20 @@ const { Provider } = CardCreatorContext;
 
 const moment = require("moment");
 const copy = `
-# awesome-app
+# This card render some markdown content
 
-## Install
+## Like this heading
 
-Go inside the cloning directory:
 
-## Steps - Starting the React Native App
+    Or this code lines
+    git clone toutane/awesome-app
 
-Then install the needed modules with the command:
+Or it can render ordered list
 
-Block code "fences"
-
-Indented code
-
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
-
-Ordered
-
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
+1. Liske this
+2. Or this...
 
 > Blockquotes can also be nested...
-
 
 **This is bold text**
 
