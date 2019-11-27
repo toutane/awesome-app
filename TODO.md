@@ -3,3 +3,5 @@
 - [x] Dark theme 🌕🌖🌗🌘🌑
 - [ ] Change text editor -> markdown editor
 - [ ] Change text reader -> markdown reader
+- [ ] Account view UI
+- [ ] Authentification UI
