@@ -71,7 +71,11 @@ export default ExploreScrollView = props => {
           </Animated.Text>
           <Animated.View style={{ opacity: titleOpacity }}>
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("Account")}
+              onPress={() =>
+                authenticated
+                  ? props.navigation.navigate("Account")
+                  : props.navigation.navigate("SignIn")
+              }
             >
               {authenticated ? (
                 <Thumbnail small source={{ uri: currentUserData.avatar }} />
