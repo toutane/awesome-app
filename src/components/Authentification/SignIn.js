@@ -6,7 +6,7 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 
-import SignInScreen from "./SignInInput";
+import SignInScreen from "./SignInScreen";
 import FadeHeader from "../headers/fadeHeader";
 
 export default SignIn = props => {
@@ -14,6 +14,44 @@ export default SignIn = props => {
   const { authenticated, register, login, logout } = useContext(AuthContext);
   const { currentUserData } = useContext(UserContext);
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+
+  const [email, setEmail] = useState("email@email.com");
+  const [emailInputColor, setEmailInputColor] = useState("");
+  const [password, setPassword] = useState("123456");
+  const [passwordInputColor, setPasswordInputColor] = useState("");
+  const [error, setError] = useState("");
+
+  async function SignIn(email, password) {
+    if (email !== "") {
+      if (password !== "") {
+        login(email, password).catch(error =>
+          error.code === "auth/invalid-email"
+            ? (setEmailInputColor("red"), setError("email is badly formatted"))
+            : error.code === "auth/wrong-password"
+            ? (setPasswordInputColor("red"), setError("password is incorrect"))
+            : error.code === "auth/user-not-found"
+            ? (setEmailInputColor("red"), setError("user not found"))
+            : alert(error.code)
+        );
+        props.navigation.navigate("Home");
+      } else {
+        setPasswordInputColor("red"), setError("password is required");
+      }
+    } else {
+      if (password === "") {
+        setEmailInputColor("red"),
+          setPasswordInputColor("red"),
+          setError("email and password are required");
+      } else {
+        if (password === "") {
+          setPasswordInputColor("red"), setError("password is required");
+        } else {
+          setEmailInputColor("red"), setError("email is required");
+        }
+      }
+    }
+  }
+
   return (
     <View
       style={{ backgroundColor: theme.backgroundColor, height: screenHeight }}
@@ -62,31 +100,13 @@ export default SignIn = props => {
             : null}
         </Text>
         <Button
-          title="Go to Explore screen"
-          color={theme.buttonColor}
-          onPress={() => props.navigation.navigate("Explore")}
-        />
-        <Button
-          title="Switch theme"
-          color={theme.buttonColor}
-          onPress={() => switchTheme()}
-        />
-        <Button
           title="Sign In"
           color={theme.buttonColor}
-          onPress={() =>
-            login("email@email.com", "123456").catch(error =>
-              console.log(error)
-            )
-          }
-        />
-        <Button
-          title="Sign Up"
-          color={theme.buttonColor}
-          onPress={() =>
-            register("john", "email@email.com", "123456").catch(error =>
-              console.log(error)
-            )
+          onPress={
+            () => SignIn(email, password)
+            // login("email@email.com", "123456").catch(error =>
+            //   console.log(error)
+            // )
           }
         />
         <Button

@@ -9,7 +9,7 @@ import { AuthContext } from "../contexts/AuthContext";
 export default Account = props => {
   const { theme } = useContext(ThemeContext);
   const { currentUserData } = useContext(UserContext);
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, logout } = useContext(AuthContext);
   return (
     <View
       style={{
@@ -39,6 +39,11 @@ export default Account = props => {
         color={theme.buttonColor}
         title="Go to Search screen"
         onPress={() => props.navigation.navigate("Search")}
+      />
+      <Button
+        title="Sign Out"
+        color={theme.buttonColor}
+        onPress={() => logout()}
       />
     </View>
   );
