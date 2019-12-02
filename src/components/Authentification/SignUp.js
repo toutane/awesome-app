@@ -4,7 +4,6 @@ import { screenHeight } from "../../utils/dimensions";
 
 import { ThemeContext } from "../../contexts/ThemeContext";
 
-import TextInput from "./TextInput";
 import FadeHeader from "../headers/fadeHeader";
 
 export default SignUp = props => {
