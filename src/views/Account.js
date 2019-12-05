@@ -43,7 +43,9 @@ export default Account = props => {
       <Button
         title="Sign Out"
         color={theme.buttonColor}
-        onPress={() => logout()}
+        onPress={() => {
+          logout(), props.navigation.navigate("SignIn");
+        }}
       />
     </View>
   );
