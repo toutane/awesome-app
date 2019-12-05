@@ -13,7 +13,8 @@ export default SignInScreen = props => {
         }}
         placeholder={"email address"}
         placeholderTextColor={props.theme.fontColor}
-        autofocus={false}
+        autoCapitalize="none"
+        autoFocus={false}
         returnKeyType="next"
         keyboardType="email-address"
         onSubmitEditing={() => passwordInput.focus()}
@@ -25,7 +26,9 @@ export default SignInScreen = props => {
             borderColor: props.passwordInputColor,
             color: props.theme.fontColor
           }}
+          autoCapitalize="none"
           placeholder={"password"}
+          secureTextEntry
           placeholderTextColor={props.theme.fontColor}
           returnKeyType="go"
           ref={input => (passwordInput = input)}
@@ -47,7 +50,7 @@ export default SignInScreen = props => {
             style={{
               fontSize: 20,
               fontWeight: "bold",
-              color: props.theme.fontColor
+              color: "white"
             }}
           >
             Sign in
