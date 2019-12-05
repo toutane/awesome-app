@@ -1,25 +1,59 @@
 import React from "react";
 import { View } from "react-native";
-
+import { Text, Button } from "native-base";
 import TextInput from "./TextInput";
 
 export default SignInScreen = props => {
   return (
-    <View>
+    <View style={{ paddingHorizontal: 32, marginTop: 250 }}>
       <TextInput
-        borderColor={props.emailInputColor}
+        style={{
+          borderColor: props.emailInputColor,
+          color: props.theme.fontColor
+        }}
         placeholder={"email address"}
+        placeholderTextColor={props.theme.fontColor}
         autofocus={false}
         returnKeyType="next"
         keyboardType="email-address"
-        onSubmitEditing={() => props.onSubmitEditing}
-        onChangeText={e => props.onChangeText}
+        onSubmitEditing={() => passwordInput.focus()}
+        onChangeText={e => props.onChangeEmail(e)}
       />
-      <TextInput
-        borderColor={props.borderColor}
-        placeholder={"password"}
-        returnKeyType="go"
-      />
+      <View style={{ marginTop: 20 }}>
+        <TextInput
+          style={{
+            borderColor: props.passwordInputColor,
+            color: props.theme.fontColor
+          }}
+          placeholder={"password"}
+          placeholderTextColor={props.theme.fontColor}
+          returnKeyType="go"
+          ref={input => (passwordInput = input)}
+          onSubmitEditing={() => props.onSubmitEditing()}
+          onChangeText={e => props.onChangePassword(e)}
+        />
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <Button
+          block
+          onPress={() => props.onSubmitEditing()}
+          style={{
+            height: 50,
+            backgroundColor: props.theme.buttonColor,
+            borderRadius: 10
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              color: props.theme.fontColor
+            }}
+          >
+            Sign in
+          </Text>
+        </Button>
+      </View>
     </View>
   );
 };
