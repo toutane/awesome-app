@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FlatList } from "react-native";
 
 import Card from "../../Cards/card";
+import SkeletonCard from "../../Cards/skeletonCard";
 
 export default ExplorePopularFlatList = props => {
   return (

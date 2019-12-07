@@ -17,10 +17,11 @@ import { screenHeight } from "../../utils/dimensions";
 import ExploreRecentFlatList from "./recent/exploreRecentFlatList";
 import ExplorePopularFlatList from "./popular/explorePopularFlatList";
 import SwitchBarHeader from "../headers/switchBarHeader";
+import SkeletonCard from "../Cards/skeletonCard";
 
 export default ExploreScrollView = props => {
   const { theme } = useContext(ThemeContext);
-  const { cards } = useContext(CardContext);
+  const { cards, loaded } = useContext(CardContext);
   const { authenticated } = useContext(AuthContext);
   const { currentUserData } = useContext(UserContext);
 
@@ -89,10 +90,19 @@ export default ExploreScrollView = props => {
             </TouchableOpacity>
           </Animated.View>
         </View>
-        {tab === "Recent" ? (
-          <ExploreRecentFlatList theme={theme} data={cards} {...props} />
+        {loaded ? (
+          tab === "Recent" ? (
+            <ExploreRecentFlatList theme={theme} data={cards} {...props} />
+          ) : (
+            <ExplorePopularFlatList
+              theme={theme}
+              data={cards}
+              {...props}
+              loaded={loaded}
+            />
+          )
         ) : (
-          <ExplorePopularFlatList theme={theme} data={cards} {...props} />
+          <SkeletonCard theme={theme} />
         )}
       </ScrollView>
       <SwitchBarHeader

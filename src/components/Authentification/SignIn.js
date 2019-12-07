@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, Text, Animated, Button } from "react-native";
 import { screenHeight } from "../../utils/dimensions";
 
@@ -21,10 +21,14 @@ export default SignIn = props => {
   const [passwordInputColor, setPasswordInputColor] = useState(theme.gray3);
   const [error, setError] = useState("");
 
+  // useEffect(() => {
+  //   props.navigation.navigate("Explore");
+  // }, [authenticated]);
+
   async function SignIn(email, password) {
     if (email !== "") {
       if (password !== "") {
-        login(email, password).catch(error => {
+        await login(email, password).catch(error => {
           console.log(error),
             error.code === "auth/invalid-email"
               ? (setEmailInputColor("red"),
@@ -36,7 +40,7 @@ export default SignIn = props => {
               ? (setEmailInputColor("red"), setError("user not found"))
               : alert(error.code);
         });
-        props.navigation.navigate("Home");
+        // props.navigation.navigate("Explore");
       } else {
         setPasswordInputColor("red"), setError("password is required");
       }

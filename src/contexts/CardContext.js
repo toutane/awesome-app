@@ -15,10 +15,13 @@ const CardProvider = props => {
   const [cards, setCards] = useState([]);
   const [currentCard, setCurrentCard] = useState({});
   const [recentSearches, setRecentSearches] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     cardsListenToChanges();
   }, []);
+
+  useEffect(() => console.log("loaded state " + loaded), [loaded]);
 
   async function cardsListenToChanges() {
     firebase.db.collection("cards").onSnapshot(() => loadCards());
@@ -43,11 +46,14 @@ const CardProvider = props => {
 
   async function loadCards() {
     const cards = await firebase.db.collection("cards").get();
-    return setCards(
-      cards.docs.map(doc => ({
-        ...doc.data(),
-        ...{ id: doc.id }
-      }))
+    return (
+      setCards(
+        cards.docs.map(doc => ({
+          ...doc.data(),
+          ...{ id: doc.id }
+        }))
+      ),
+      setLoaded(true)
     );
   }
 
@@ -143,7 +149,8 @@ const CardProvider = props => {
         addToRecentSearch,
         deleteCard,
         currentCard,
-        currentCardListen
+        currentCardListen,
+        loaded
       }}
     >
       {props.children}
