@@ -34,12 +34,11 @@ export default SignUp = props => {
       </View>
       <FadeHeader
         {...props}
-        backHeader="Explore"
+        backHeader="SignIn"
         backBtn={true}
-        header="Explore"
+        header="SignIn"
         scrollY={scrollY}
       />
-      <SignInScreen />
     </View>
   );
 };
