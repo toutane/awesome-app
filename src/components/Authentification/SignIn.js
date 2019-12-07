@@ -101,7 +101,7 @@ export default SignIn = props => {
         }}
         onSubmitEditing={() => SignIn(email, password)}
       />
-      <View style={{ alignItems: "center", marginTop: 30 }}>
+      <View style={{ alignItems: "center", marginTop: 40 }}>
         <Text
           style={{
             color: theme.fontColor,
@@ -116,7 +116,7 @@ export default SignIn = props => {
               fontSize: 20
             }}
             onPress={
-              () => props.navigation.navigate("SignUp")
+              theme => props.navigation.navigate("SignUp", { theme: theme })
               // () =>
               // this.setState(
               //   {

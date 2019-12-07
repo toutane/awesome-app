@@ -5,7 +5,7 @@ import TextInput from "./TextInput";
 
 export default SignInScreen = props => {
   return (
-    <View style={{ paddingHorizontal: 32, marginTop: 250 }}>
+    <View style={{ paddingHorizontal: 45, marginTop: 220 }}>
       <TextInput
         style={{
           borderColor: props.emailInputColor,
@@ -36,7 +36,7 @@ export default SignInScreen = props => {
           onChangeText={e => props.onChangePassword(e)}
         />
       </View>
-      <View style={{ marginTop: 20 }}>
+      <View style={{ marginTop: 30 }}>
         <Button
           block
           onPress={() => props.onSubmitEditing()}
