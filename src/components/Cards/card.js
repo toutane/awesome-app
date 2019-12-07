@@ -54,13 +54,13 @@ export default Card = props => {
         }}
         onPress={() => handleCard(props.item, props.back, props.isSearching)}
       >
-        <Ionicons
+        {/* <Ionicons
           name="ios-close"
           size={30}
           color={"white"}
           style={{ position: "absolute", top: 10, right: 15 }}
           onPress={() => deleteCard(props.item.id)}
-        />
+        /> */}
         <Text
           style={{
             fontFamily: "sf-display-bold",
