@@ -1,3 +1,4 @@
 # Other files and folders
 node_modules
 src/config/firebaseConfig.js
+.expo/web/
